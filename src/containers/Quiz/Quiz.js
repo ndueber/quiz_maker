@@ -29,8 +29,10 @@ class Quiz extends React.Component {
   }
 
   onEditInput(index) {
+    const saveButton = document.getElementById(baseClass + '__saveButton--' + index);
+    saveButton.style.display = 'block';
     this.props.editQuestion(index);
-    this.setState({ key: Math.random() });
+    // this.setState({ key: Math.random() });
   }
 
   getQuestionClass(index) {
@@ -63,6 +65,9 @@ class Quiz extends React.Component {
     const questions = this.props.questions.map((questionObj, index) => {
       return (
         <div key={index} className={`${baseClass}__question`}>
+          <div className={`${baseClass}__index`}>
+            { index + 1 }.
+          </div>
           <input
             id={`${baseClass}__question--${index}`}
             className={`${baseClass}__input ${this.getQuestionClass(index)}`}
@@ -79,7 +84,10 @@ class Quiz extends React.Component {
             defaultValue={questionObj.answer}
             onChange={this.onEditInput.bind(this, index)}
            />
-          <a className={`button`} onClick={this.saveQuestionHandler.bind(this, index)}>
+          <a id={`${baseClass}__saveButton--${index}`}
+            className={`button`}
+            onClick={this.saveQuestionHandler.bind(this, index)}
+            style={{display: 'none'}}>
             Save Question
           </a>
           <a className={`button`} onClick={this.deleteQuestionHandler.bind(this, index)}>
@@ -97,7 +105,7 @@ class Quiz extends React.Component {
         <input id={`${baseClass}__question`} className={`${baseClass}__input`} type="text" name="question" defaultValue="Add Question Here"/>
         <input id={`${baseClass}__answer`} className={`${baseClass}__input`} type="text" name="answer" defaultValue="Add Answer Here"/>
         <a className={`button`} onClick={this.addQuestionHandler}>
-          add question
+          Add New Question
         </a>
       </div>
     );

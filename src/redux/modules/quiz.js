@@ -16,6 +16,7 @@ export default function reducer(state = initialState, action = {}) {
       questions[action.questionId] = questionObj;
       return {
         ...state,
+        questions
       };
     case ADD_QUESTION:
       const question = {'question': action.question, 'answer': action.answer, 'editting': false};
@@ -27,10 +28,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     case DELETE_QUESTION:
       let questions = JSON.parse(JSON.stringify(state.questions));
-      console.log('in delete questions');
-      console.log(questions);
       questions.splice(action.questionId, 1);
-      console.log(questions);
       return {
         ...state,
         questions
