@@ -1,0 +1,29 @@
+.Quiz {
+	&__question {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+
+	&__addQuestion {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+
+	&__input {
+		margin-right: 20px;
+	}
+
+	.button + .button {
+		margin-left: 20px;
+	}
+
+	&__title {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+		font-size: 30px;
+		weight: 400;
+	}
+}

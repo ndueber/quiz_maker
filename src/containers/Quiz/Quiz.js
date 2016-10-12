@@ -106,6 +106,9 @@ class Quiz extends React.Component {
   render() {
     return (
       <div key={this.state.key} className={`${baseClass}`}>
+        <div className={`${baseClass}__title`}>
+          Quiz Creator
+        </div>
         {this.renderQuestions()}
         {this.renderAddQuestion()}
       </div>
