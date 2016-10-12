@@ -36,6 +36,8 @@ export default function reducer(state = initialState, action = {}) {
     case EDIT_QUESTION:
       let questions = JSON.parse(JSON.stringify(state.questions));
       questions[action.questionId].editting = true;
+      questions[action.questionId].edittedQuestion = action.edittedQuestion;
+      questions[action.questionId].edittedAnswer = action.edittedAnswer;
       return {
         ...state,
         questions
@@ -63,9 +65,11 @@ export function saveQuestion(question, answer, questionId) {
   };
 }
 
-export function editQuestion(questionId) {
+export function editQuestion(edittedQuestion, edittedAnswer, questionId) {
   return {
     type: EDIT_QUESTION,
+    edittedQuestion: edittedQuestion,
+    edittedAnswer: edittedAnswer,
     questionId: questionId
   };
 }

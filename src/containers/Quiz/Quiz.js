@@ -31,12 +31,14 @@ class Quiz extends React.Component {
   onEditInput(index) {
     const saveButton = document.getElementById(baseClass + '__saveButton--' + index);
     saveButton.style.display = 'block';
-    this.props.editQuestion(index);
+    const questionInputVal = document.getElementById(baseClass + '__question--' + index).value;
+    const answerInputVal = document.getElementById(baseClass + '__answer--' + index).value;
+    this.props.editQuestion(questionInputVal, answerInputVal, index);
     // this.setState({ key: Math.random() });
   }
 
   getQuestionClass(index) {
-    if (this.props.questions[index].edited === true) {
+    if (this.props.questions[index].editting === true) {
       return baseClass + '__edited';
     }
     return baseClass + '__unedited';
@@ -63,6 +65,17 @@ class Quiz extends React.Component {
 
   renderQuestions() {
     const questions = this.props.questions.map((questionObj, index) => {
+      let saveButtonStyle = {};
+      let question = questionObj.question;
+      let answer = questionObj.answer;
+      if (this.props.questions[index].editting === true) {
+        // saveButtonStyle.display = '';
+        question = questionObj.edittedQuestion;
+        answer = questionObj.edittedAnswer;
+      }
+      else {
+        saveButtonStyle.display = 'none';
+      }
       return (
         <div key={index} className={`${baseClass}__question`}>
           <div className={`${baseClass}__index`}>
@@ -73,7 +86,7 @@ class Quiz extends React.Component {
             className={`${baseClass}__input ${this.getQuestionClass(index)}`}
             type="text"
             name="question"
-            defaultValue={questionObj.question}
+            defaultValue={question}
             onChange={this.onEditInput.bind(this, index)}
           />
           <input
@@ -81,13 +94,13 @@ class Quiz extends React.Component {
             className={`${baseClass}__input ${this.getQuestionClass(index)}`}
             type="text"
             name="answer"
-            defaultValue={questionObj.answer}
+            defaultValue={answer}
             onChange={this.onEditInput.bind(this, index)}
            />
           <a id={`${baseClass}__saveButton--${index}`}
             className={`button`}
             onClick={this.saveQuestionHandler.bind(this, index)}
-            style={{display: 'none'}}>
+            style={saveButtonStyle}>
             Save Question
           </a>
           <a className={`button`} onClick={this.deleteQuestionHandler.bind(this, index)}>
